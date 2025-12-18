@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMA Compliance Audit Dashboard | Branded vs Generic Drug Analysis</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-pills"></i>
+                <div class="logo-text">
+                    <h1>CMA Compliance Dashboard</h1>
+                    <span>Branded vs Generic Drug Prescription Analysis</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="date-filter">
+                    <label for="quarter-select">Period:</label>
+                    <select id="quarter-select">
+                        <option value="q1-2025">Q1 2025</option>
+                        <option value="q2-2025" selected>Q2 2025</option>
+                        <option value="q3-2025">Q3 2025</option>
+                        <option value="q4-2025">Q4 2025</option>
+                    </select>
+                </div>
+                <button class="btn-export" onclick="exportReport()">
+                    <i class="fas fa-download"></i> Export Report
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- KPI Cards Section -->
+        <section class="kpi-section">
+            <div class="kpi-card">
+                <div class="kpi-icon green">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="kpi-content">
+                    <span class="kpi-label">Generic Utilization Rate</span>
+                    <span class="kpi-value" id="kpi-generic-rate">87.4%</span>
+                    <span class="kpi-trend positive"><i class="fas fa-arrow-up"></i> 2.3% vs last quarter</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon blue">
+                    <i class="fas fa-peso-sign"></i>
+                </div>
+                <div class="kpi-content">
+                    <span class="kpi-label">Avg. Unit Cost</span>
+                    <span class="kpi-value" id="kpi-avg-cost">₱4.82</span>
+                    <span class="kpi-trend positive"><i class="fas fa-arrow-down"></i> ₱0.45 vs last quarter</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon orange">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="kpi-content">
+                    <span class="kpi-label">Flagged Drugs</span>
+                    <span class="kpi-value" id="kpi-flagged-drugs">10</span>
+                    <span class="kpi-trend negative"><i class="fas fa-arrow-up"></i> 2 new flags</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon red">
+                    <i class="fas fa-hospital"></i>
+                </div>
+                <div class="kpi-content">
+                    <span class="kpi-label">High-Risk Facilities</span>
+                    <span class="kpi-value" id="kpi-risk-facilities">3</span>
+                    <span class="kpi-trend neutral"><i class="fas fa-minus"></i> No change</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Tabs -->
+        <nav class="dashboard-tabs">
+            <button class="tab-btn active" data-tab="generic-utilization">
+                <i class="fas fa-chart-pie"></i> Generic Availability
+            </button>
+            <button class="tab-btn" data-tab="price-spread">
+                <i class="fas fa-chart-bar"></i> Price Spread Analysis
+            </button>
+            <button class="tab-btn" data-tab="facility-ranking">
+                <i class="fas fa-list-ol"></i> Facility Ranking
+            </button>
+            <button class="tab-btn" data-tab="risk-flags">
+                <i class="fas fa-flag"></i> Risk Flags
+            </button>
+        </nav>
+
+        <!-- Tab Contents -->
+        <div class="tab-contents">
+            <!-- Generic Utilization Tab -->
+            <div class="tab-content active" id="generic-utilization">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-pie"></i> Generic Availability & Utilization</h2>
+                    <p class="section-description">Facilities that consistently procure low-cost generic drugs are more compliant with the Cheaper Medicines Act.</p>
+                </div>
+                
+                <div class="chart-grid">
+                    <div class="chart-card large">
+                        <div class="chart-header">
+                            <h3>Top 15 Most Dispensed Drugs by Cost Category</h3>
+                            <div class="chart-filters">
+                                <button class="filter-btn active" data-filter="all">All</button>
+                                <button class="filter-btn" data-filter="low">Low Cost (&lt;₱5)</button>
+                                <button class="filter-btn" data-filter="high">High Cost (&gt;₱5)</button>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="topDrugsChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Drug Volume by Cost Threshold</h3>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="costDistributionChart"></canvas>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-color green"></span>
+                                <span>Under ₱5/unit (CMA Compliant)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color orange"></span>
+                                <span>₱5-20/unit (Review Needed)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color red"></span>
+                                <span>Over ₱20/unit (High Cost)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Dispensing by Drug Category</h3>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- High Volume, High Cost Alert Table -->
+                <div class="alert-section">
+                    <div class="alert-header warning">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <h3>High-Volume Drugs with Unexpectedly High Unit Cost</h3>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table" id="highCostDrugsTable">
+                            <thead>
+                                <tr>
+                                    <th>Drug Name</th>
+                                    <th>Category</th>
+                                    <th>Unit Cost</th>
+                                    <th>Quantity Dispensed</th>
+                                    <th>Total Value</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Price Spread Analysis Tab -->
+            <div class="tab-content" id="price-spread">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-bar"></i> Price Spread Analysis</h2>
+                    <p class="section-description">Large price spreads for the same drug indicate potential branded vs generic mix issues and inconsistent sourcing.</p>
+                </div>
+
+                <div class="spread-controls">
+                    <div class="control-group">
+                        <label>Category Filter:</label>
+                        <select id="category-filter">
+                            <option value="all">All Categories</option>
+                            <option value="Antihypertensive">Antihypertensive</option>
+                            <option value="Antidiabetic">Antidiabetic</option>
+                            <option value="Antibiotic">Antibiotic</option>
+                            <option value="Antilipidemic">Antilipidemic</option>
+                            <option value="Antidepressant">Antidepressant</option>
+                            <option value="Antipsychotic">Antipsychotic</option>
+                            <option value="Antiepileptic">Antiepileptic</option>
+                            <option value="Analgesic">Analgesic</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>Price Ratio Threshold:</label>
+                        <input type="range" id="ratio-threshold" min="2" max="20" value="5">
+                        <span id="ratio-value">5x</span>
+                    </div>
+                </div>
+
+                <div class="chart-grid">
+                    <div class="chart-card full-width">
+                        <div class="chart-header">
+                            <h3>Price Range by Drug (Min/Median/Max)</h3>
+                        </div>
+                        <div class="chart-body tall">
+                            <canvas id="priceSpreadChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-section">
+                    <div class="table-header">
+                        <h3><i class="fas fa-table"></i> Detailed Price Spread Data</h3>
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="drug-search" placeholder="Search drug name...">
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table sortable" id="priceSpreadTable">
+                            <thead>
+                                <tr>
+                                    <th data-sort="name">Drug Name <i class="fas fa-sort"></i></th>
+                                    <th data-sort="category">Category <i class="fas fa-sort"></i></th>
+                                    <th data-sort="lowest">Lowest ₱ <i class="fas fa-sort"></i></th>
+                                    <th data-sort="median">Median ₱ <i class="fas fa-sort"></i></th>
+                                    <th data-sort="highest">Highest ₱ <i class="fas fa-sort"></i></th>
+                                    <th data-sort="spread">Spread <i class="fas fa-sort"></i></th>
+                                    <th data-sort="ratio">Ratio <i class="fas fa-sort"></i></th>
+                                    <th>Flag</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Facility Ranking Tab -->
+            <div class="tab-content" id="facility-ranking">
+                <div class="section-header">
+                    <h2><i class="fas fa-list-ol"></i> Facility-Level Compliance Ranking</h2>
+                    <p class="section-description">Facilities with consistently higher drug costs may require procurement review under CMA guidelines.</p>
+                </div>
+
+                <div class="ranking-controls">
+                    <div class="control-group">
+                        <label>Sort By:</label>
+                        <select id="facility-sort">
+                            <option value="avgCost">Average Unit Cost</option>
+                            <option value="genericRate">Generic Rate</option>
+                            <option value="flaggedDrugs">Flagged Drugs</option>
+                            <option value="volume">Total Volume</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>Region Filter:</label>
+                        <select id="region-filter">
+                            <option value="all">All Regions</option>
+                            <option value="NCR">NCR</option>
+                            <option value="CAR">CAR</option>
+                            <option value="Region I">Region I</option>
+                            <option value="Region II">Region II</option>
+                            <option value="Region III">Region III</option>
+                            <option value="Region IV-A">Region IV-A</option>
+                            <option value="Region IV-B">Region IV-B</option>
+                            <option value="Region V">Region V</option>
+                            <option value="Region VI">Region VI</option>
+                            <option value="Region VII">Region VII</option>
+                            <option value="Region VIII">Region VIII</option>
+                            <option value="Region IX">Region IX</option>
+                            <option value="Region X">Region X</option>
+                            <option value="Region XI">Region XI</option>
+                            <option value="Region XII">Region XII</option>
+                            <option value="Caraga">Caraga</option>
+                            <option value="BARMM">BARMM</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="chart-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Facility Cost Efficiency Ranking</h3>
+                        </div>
+                        <div class="chart-body tall">
+                            <canvas id="facilityRankingChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Generic Utilization by Facility</h3>
+                        </div>
+                        <div class="chart-body tall">
+                            <canvas id="genericRateChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="heatmap-section">
+                    <h3><i class="fas fa-th"></i> Regional Compliance Heatmap</h3>
+                    <div class="heatmap-container" id="regionHeatmap">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <div class="table-section">
+                    <div class="table-header">
+                        <h3>Facility Compliance Details</h3>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table" id="facilityTable">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Facility Name</th>
+                                    <th>Region</th>
+                                    <th>Avg. Unit Cost</th>
+                                    <th>Generic Rate</th>
+                                    <th>Total Volume</th>
+                                    <th>Flagged Drugs</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Risk Flags Tab -->
+            <div class="tab-content" id="risk-flags">
+                <div class="section-header">
+                    <h2><i class="fas fa-flag"></i> Cheaper Medicines Act Risk Flags</h2>
+                    <p class="section-description">Audit flags for drugs and facilities that may require policy review under CMA compliance guidelines.</p>
+                </div>
+
+                <div class="risk-summary">
+                    <div class="risk-card high">
+                        <div class="risk-icon"><i class="fas fa-times-circle"></i></div>
+                        <div class="risk-content">
+                            <span class="risk-count" id="high-risk-count">5</span>
+                            <span class="risk-label">High Risk</span>
+                            <span class="risk-desc">Price spread &gt;10x reference</span>
+                        </div>
+                    </div>
+                    <div class="risk-card medium">
+                        <div class="risk-icon"><i class="fas fa-exclamation-circle"></i></div>
+                        <div class="risk-content">
+                            <span class="risk-count" id="medium-risk-count">3</span>
+                            <span class="risk-label">Medium Risk</span>
+                            <span class="risk-desc">High volume + high cost</span>
+                        </div>
+                    </div>
+                    <div class="risk-card low">
+                        <div class="risk-icon"><i class="fas fa-info-circle"></i></div>
+                        <div class="risk-content">
+                            <span class="risk-count" id="low-risk-count">2</span>
+                            <span class="risk-label">Low Risk</span>
+                            <span class="risk-desc">Price spread 5-10x</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-grid">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Risk Distribution by Severity</h3>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="riskDistributionChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Flagged Drugs by Issue Type</h3>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="issueTypeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert-section">
+                    <div class="alert-header danger">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Compliance Risk Indicators</h3>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table" id="riskFlagsTable">
+                            <thead>
+                                <tr>
+                                    <th>Drug Name</th>
+                                    <th>Issue Type</th>
+                                    <th>Severity</th>
+                                    <th>Price Ratio</th>
+                                    <th>Affected Facilities</th>
+                                    <th>Action Required</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="recommendations-section">
+                    <h3><i class="fas fa-lightbulb"></i> CMA Compliance Recommendations</h3>
+                    <div class="recommendations-grid">
+                        <div class="recommendation-card">
+                            <div class="rec-icon"><i class="fas fa-search-dollar"></i></div>
+                            <h4>Price Verification</h4>
+                            <p>Review procurement records for flagged drugs with price ratios exceeding 10x to ensure compliance with national reference pricing.</p>
+                        </div>
+                        <div class="recommendation-card">
+                            <div class="rec-icon"><i class="fas fa-exchange-alt"></i></div>
+                            <h4>Generic Substitution</h4>
+                            <p>Facilities with low generic utilization rates should prioritize generic alternatives per RA 9502 guidelines.</p>
+                        </div>
+                        <div class="recommendation-card">
+                            <div class="rec-icon"><i class="fas fa-file-contract"></i></div>
+                            <h4>Supplier Audit</h4>
+                            <p>Conduct supplier audits for facilities consistently procuring above-reference-price medications.</p>
+                        </div>
+                        <div class="recommendation-card">
+                            <div class="rec-icon"><i class="fas fa-graduation-cap"></i></div>
+                            <h4>Staff Training</h4>
+                            <p>Implement CMA awareness training for procurement officers in high-risk facilities.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <p>&copy; 2025 CMA Compliance Dashboard | Cheaper Medicines Act (RA 9502) Audit Tool</p>
+            </div>
+            <div class="footer-right">
+                <span>Data as of Q2 2025</span>
+                <span>|</span>
+                <span>Department of Health - Philippines</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Drug Details -->
+    <div class="modal" id="drugModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Drug Details</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="data/drugData.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+"D.6. Women  aged  30-65  years  old who were  screened  for cervical  cancer,  either  found suspicious or positive for grecancerous lesions then treated or referred (as of Q2 2025)"																					
+Area	Target Population	Screened / Assessed for Cervical Cancer		Suspicious for Cervical Cancer	Treated / Referred	%	Positive for Precancerous Lesions	Treated / Referred	%												
+																					
+		No.	%		No.			No.													
+Philippines	"30,478,864"	"120,606"	0.59%	"3,444"	"1,499"	43.52%	652	401	61.50%												
+NCR	"2,854,176"	"27,226"	0.95%	127	49	38.58%	83	40	48.19%												
+CAR	"336,688"	"5,240"	1.56%	165	0	0.00%	5	0	0.00%												
+Region1	"1,023,870"	"8,575"	0.84%	445	437	98.20%	0	0	0.00%												
+Region2	"715,263"	"5,524"	0.77%	128	89	69.53%	6	5	83.33%												
+Region3	"2,428,540"	"14,200"	0.58%	6	5	83.33%	105	47	44.76%												
+Region4A	"3,306,500"	"11,006"	0.33%	650	0	0.00%	0	0	0.00%												
+Region4B	"562,490"	"2,053"	0.36%	69	10	14.49%	1	1	100.00%												
+Region5	"1,048,012"	"4,588"	0.44%	130	86	66.15%	45	19	42.22%												
+Region6	"878,634"	"1,684"	0.19%	45	2	4.44%	2	2	100.00%												
+Region7	"1,224,286"	"3,078"	0.25%	30	13	43.33%	49	46	93.88%												
+Region8	"766,132"	"1,253"	0.16%	29	1	3.45%	3	3	100.00%												
+Region9	"663,466"	"3,052"	0.46%	128	71	55.47%	57	23	40.35%												
+Region 10	"896,916"	"1,986"	0.22%	159	25	15.72%	38	34	89.47%												
+Region 11	"955,291"	"12,535"	1.31%	"1,038"	545	52.50%	43	11	25.58%												
+Region12	"779,279"	372	0.05%	0	0	0.00%	0	0	0.00%												
+Caraga	"473,660"	"12,762"	2.69%	201	165	82.09%	156	170	108.97%												
+BARMM	"689,315"	"4,363"	0.63%	19	1	5.26%	0	0	0.00%												
+NIR	"876,346"	"1,009"	0.12%	75	0	0.00%	59	0	0.00%												
+"? - Projected Population of 30-65 years old women  - Total number of Screened 30-65 years old women for the pest 2 yeas
+N?ote? Oafa collection for the specific age group (3O?65 years old) began only in the second semester o/ 2024. Prior daia may nof be fully aligned with this age bracket."																					

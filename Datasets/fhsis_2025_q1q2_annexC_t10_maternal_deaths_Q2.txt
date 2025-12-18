@@ -1,0 +1,24 @@
+Annex C. Maternal Deaths																			
+"C.1. Maternal Deaths by Reg¡on, 2nd Quarter 2025"																			
+AREAS	Livebirths	Direct Maternal Deaths	Ratio*	Indirect Maternal Deaths	Ratio*														
+Phlllppines	"555,719"	198	35.63	86	15.48														
+NCR	"75,169"	23	30.60	17	22.62														
+CAR	"10,424"	2	19.19	0	0.00														
+Region 1	"20,719"	11	53.09	1	4.83														
+Region 2	"14,883"	2	13.44	5	33.60														
+Region 3	"53,734"	15	27.92	6	11.17														
+Region 4A	"88,841"	29	32.64	0	0.00														
+Region 4B	"14,239"	11	77.25	2	14.05														
+Region 5	"32,543"	16	49.17	10	30.73														
+Region 6	"13,166"	2	15.19	3	22.79														
+Region 7	"34,053"	2	5.87	2	5.87														
+Region 8	"24,072"	10	41.54	1	4.15														
+Region 9	"13,821"	8	57.88	2	44.47														
+Region 10	"28,341"	12	42.34	1	3.53														
+Region 11	"33,905"	29	85.53	12	35.39														
+Region 12	"29,572"	5	16.91	12	40.58														
+Caraga	"16,947"	19	112.11	10	59.01														
+BARMM	"31,638"	1	3.16	1	3.16														
+NIR	"19,652"	1	5.09	1	5.09														
+"? - Ratio per 100,000 livebirths"																			
+																			

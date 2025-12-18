@@ -1,0 +1,25 @@
+"D.7. Women  aged  30-65  years  old who  were  screened  for  cervical cancer,  either  found suspicious or positive for precancerous lesions then treated or referred (as of Q1 2025)"																			
+Area	Target Population	Screened / Assessed for Cervical Cancer		Suspicious for Cervical Cancer	Treated / Referred	%	Positive for Precancerous Lesions	Treated / Referred	%										
+																			
+		No.	%		No.			No.											
+Philippines	"20,478,864"	"50,330"	0.25%	"1,589"	687	43.23%	185	34	0.184										
+NCR	"2,854,176"	"13,335"	0.47%	90	27	30.00%	22	13	59.09%										
+CAR	"336,688"	"2,330"	0.69%	78	0	0.00%	2	0	0.00%										
+Region1	"1,023,870"	"5,676"	0.55%	102	192	100.00%	0	0	0.00%										
+Region2	"715,263"	"2,562"	0.36%	48	17	35.42%	3	2	66.67%										
+Region3	"2,428,540"	"3,428"	0.14%	0	0	0.00%	33	8	24.24%										
+Region4A	"3,306,500"	"7,264"	0.22%	391	0	0.00%	0	0	0.00%										
+Region4B	"562,490"	944	0.17%	21	4	19.05%	1	1	100.00%										
+Region5	"1,048,012"	"2,084"	0.20%	84	43	51.19%	3	3	100.00%										
+Region6	"878,634"	"1,001"	0.11%	15	0	0.00%	0	0	0.00%										
+Region7	"1,224,286"	599	0.05%	17	3	17.65%	0	0	0.00%										
+Region8	"766,132"	0	0.00%	0	0	0.00%	0	0	0.00%										
+Region9	"663,466"	"1,550"	0.23%	104	50	48.08%	33	2	6.06%										
+Region10	"896,916"	0	0.00%	0	0	0.D0%	0	0	0.00%										
+Region 11	"955,291"	"4,195"	0.44%	435	295	67.82%	25	2	8.00%										
+Region12	"779,279"	31	0.00%	0	0	0.00%	0	0	0.00%										
+Caraga	"473,660"	"3,543"	0.75%	68	55	80.88%	4	3	75.00%										
+BARMM	"689,315"	"1,410"	0.20%	8	1	12.50%	0	0	0.00%										
+NIR	"876,346"	378	0.04%	38	0	0.00%	59	0	0.00%										
+"? - Projected Population of 30-65 yeas old women  - Tolal number of Screened 30-65 yeas old women /or the past 2 years
+Note: Data co//ecfion for file specific age group (30-65 yeers old) began only in the second semester of 2024. Prior data may not be /'tz//y aligned with this age bracket."																			

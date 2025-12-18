@@ -1,0 +1,24 @@
+D.4. Senior Identified with Type II Diabetes Mellitus with Access to Antidiabetic Medication (as of Q2 2025)																			
+Areas	Adults Identified with Type II Diabetes	With Access to Antidiabetic Medication																	
+		Total		Provided by Facility	Out of Pocket														
+		No.	%																
+Philippines	"216,931"	"66,543"	30.67%	"51,597"	"14,946"														
+NCR	"65,916"	"4,869"	7.39%	"4,663"	206														
+CAR	"3,772"	"1,099"	29.14%	935	164														
+Region 1	"10,703"	"7,931"	74.10%	"6,621"	"1,310"														
+Regton 2	"12,181"	"9,057"	74.35%	"8,131"	926														
+Region 3	"42,677"	"21,041"	49.30%	"15,251"	"5,790"														
+Region 4A	"6,375"	"3,136"	49.19%	"1,633"	"1,503"														
+Region 4B	"1,458"	684	46.91%	437	247														
+Region 5	"5,054"	"1,493"	29.54%	957	536														
+Region 6	"23,616"	"1,618"	6.85%	730	888														
+Region 7	"3,920"	"1,620"	41.33%	"1,108"	512														
+Region 8	"8,625"	"4,687"	54.34%	"4,375"	312														
+Region 9	"2,090"	475	22.73%	381	94														
+Region 10	"5,235"	"1,312"	25.06%	"1,040"	272														
+Region 11	"12,879"	"2,245"	17.43%	"1,269"	976														
+Region 12	"3,225"	741	22.98%	586	155														
+Caraga	"5,752"	"3,797"	66.01%	"2,844"	953														
+BARMM	0	278	0.00%	276	2														
+NIR	"3,453"	460	13.32%	360	100														
+																			

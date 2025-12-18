@@ -1,0 +1,29 @@
+D.5. Women  aged 30-65 years old who were screened for cervical cancer and either found suspicious or positive for cervical cancer																			
+Area	Screened or Assessed for Cervical Cancer	%	Treated*	%	Referred*	%													
+PHILIPPINES	"50,330"	0.25	253	15.92	434	27.31													
+NCR	"13,335"	0.47	27	30	0	0.00													
+CAR	"2,330"	0.69	0	0	0	0.00													
+Region 1	"5,676"	0.55	0	0	192	100.00													
+Region 2	"2,562"	0.36	0	0	17	35.42													
+Region 3	"3,428"	0.14	0	0	0	0.00													
+Region 4A	"7,264"	0.22	0	0	0	0.00													
+Region 4B	944	0.17	0	0	4	19.05													
+Region 5	"2,084"	0.20	24	28.57	19	22.62													
+Region 6	"1,001"	0.11	0	0	0	0.00													
+Region 7	599	0.05	1	5.88	2	11.76													
+Region 8	0	0.00	0	0	0	0.00													
+Region 9	"1,550"	0.23	0	0	50	48.08													
+Region 10	0	0.00	0	0	0	0.00													
+Region 11	"4,195"	0.44	201	46.21	94	21.61													
+Region 12	31	0.00	0	0	0	0.00													
+Caraga	"3,543"	0.75	0	0	55	80.88													
+BARMM	"1,410"	0.20	0	0	1	12.50													
+NIR	378	0.04	0	0	0	0.00													
+? - Found Suspicious for cervical Cancer																			
+																			
+																			
+																			
+																			
+																			
+																			
+																			
