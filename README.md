@@ -31,26 +31,6 @@ An interactive dashboard for auditing compliance with the **Cheaper Medicines Ac
 
 ---
 
-## 🚀 How to Run
-
-1. Navigate to the dashboard folder:
-   ```
-   cd dashboard
-   ```
-
-2. Open `index.html` in any modern web browser, or use a local server:
-   ```bash
-   # Using Python
-   python -m http.server 8000
-   
-   # Using Node.js (if http-server is installed)
-   npx http-server
-   ```
-
-3. Access the dashboard at `http://localhost:8000`
-
----
-
 ## 📁 Project Structure
 
 ```
@@ -106,9 +86,3 @@ Pescription_Analysis/
 ## 📝 License
 
 This project is for educational and compliance auditing purposes related to the Cheaper Medicines Act (RA 9502) of the Philippines.
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please ensure any additions align with the CMA compliance audit objectives.
