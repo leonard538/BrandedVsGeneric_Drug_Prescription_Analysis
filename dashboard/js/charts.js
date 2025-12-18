@@ -619,5 +619,42 @@ window.chartFunctions = {
     updateTopDrugsChart,
     updatePriceSpreadChart,
     updateFacilityCharts,
-    formatNumber
+    formatNumber,
+    destroyAllCharts
 };
+
+// Destroy all charts for clean reinitialization
+function destroyAllCharts() {
+    if (topDrugsChart) {
+        topDrugsChart.destroy();
+        topDrugsChart = null;
+    }
+    if (costDistributionChart) {
+        costDistributionChart.destroy();
+        costDistributionChart = null;
+    }
+    if (categoryChart) {
+        categoryChart.destroy();
+        categoryChart = null;
+    }
+    if (priceSpreadChart) {
+        priceSpreadChart.destroy();
+        priceSpreadChart = null;
+    }
+    if (facilityRankingChart) {
+        facilityRankingChart.destroy();
+        facilityRankingChart = null;
+    }
+    if (genericRateChart) {
+        genericRateChart.destroy();
+        genericRateChart = null;
+    }
+    if (riskDistributionChart) {
+        riskDistributionChart.destroy();
+        riskDistributionChart = null;
+    }
+    if (issueTypeChart) {
+        issueTypeChart.destroy();
+        issueTypeChart = null;
+    }
+}

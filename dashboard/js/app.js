@@ -4,6 +4,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all components
     initTabs();
+    initQuarterSelector();
     initCharts();
     initTables();
     initFilters();
@@ -12,6 +13,136 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('CMA Compliance Dashboard initialized successfully');
 });
+
+// Quarter Selector - Main data switching logic
+function initQuarterSelector() {
+    const quarterSelect = document.getElementById('quarter-select');
+    if (!quarterSelect) return;
+    
+    quarterSelect.addEventListener('change', (e) => {
+        const selectedQuarter = e.target.value;
+        
+        // Switch data based on selection
+        if (typeof switchQuarterData === 'function') {
+            switchQuarterData(selectedQuarter);
+        }
+        
+        // Refresh all dashboard components
+        refreshDashboard();
+        
+        // Show notification
+        showQuarterChangeNotification(selectedQuarter);
+    });
+}
+
+// Refresh entire dashboard with new data
+function refreshDashboard() {
+    // Update KPIs
+    updateKPIs();
+    
+    // Reinitialize tables with new data
+    initTables();
+    
+    // Reinitialize heatmap
+    initHeatmap();
+    
+    // Reinitialize charts
+    if (window.chartFunctions && window.chartFunctions.initializeCharts) {
+        window.chartFunctions.destroyAllCharts();
+        window.chartFunctions.initializeCharts();
+    }
+    
+    // Update trends based on quarter
+    updateTrends();
+}
+
+// Show notification when quarter changes
+function showQuarterChangeNotification(quarter) {
+    const quarterNames = {
+        'q1-2025': 'Q1 2025',
+        'q2-2025': 'Q2 2025',
+        'all': 'All Quarters (2025)'
+    };
+    
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = 'quarter-notification';
+    notification.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <span>Data updated to: <strong>${quarterNames[quarter] || quarter}</strong></span>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => notification.classList.add('show'), 10);
+    
+    // Remove after delay
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+    }, 2500);
+}
+
+// Update trend indicators based on selected quarter
+function updateTrends() {
+    const quarter = document.getElementById('quarter-select')?.value || 'all';
+    const trendElements = document.querySelectorAll('.kpi-trend');
+    
+    if (quarter === 'q1-2025') {
+        // Q1 is baseline - no comparison
+        trendElements.forEach(el => {
+            el.innerHTML = '<i class="fas fa-minus"></i> Baseline period';
+            el.className = 'kpi-trend neutral';
+        });
+    } else if (quarter === 'q2-2025') {
+        // Q2 compared to Q1
+        const genericRateTrend = document.querySelector('.kpi-card:nth-child(1) .kpi-trend');
+        const avgCostTrend = document.querySelector('.kpi-card:nth-child(2) .kpi-trend');
+        const flaggedTrend = document.querySelector('.kpi-card:nth-child(3) .kpi-trend');
+        const riskTrend = document.querySelector('.kpi-card:nth-child(4) .kpi-trend');
+        
+        if (genericRateTrend) {
+            genericRateTrend.innerHTML = '<i class="fas fa-arrow-up"></i> +3.2% vs Q1';
+            genericRateTrend.className = 'kpi-trend positive';
+        }
+        if (avgCostTrend) {
+            avgCostTrend.innerHTML = '<i class="fas fa-arrow-down"></i> -₱0.65 vs Q1';
+            avgCostTrend.className = 'kpi-trend positive';
+        }
+        if (flaggedTrend) {
+            flaggedTrend.innerHTML = '<i class="fas fa-arrow-down"></i> -2 flags vs Q1';
+            flaggedTrend.className = 'kpi-trend positive';
+        }
+        if (riskTrend) {
+            riskTrend.innerHTML = '<i class="fas fa-arrow-down"></i> -1 facility vs Q1';
+            riskTrend.className = 'kpi-trend positive';
+        }
+    } else {
+        // All quarters - show combined trends
+        const genericRateTrend = document.querySelector('.kpi-card:nth-child(1) .kpi-trend');
+        const avgCostTrend = document.querySelector('.kpi-card:nth-child(2) .kpi-trend');
+        const flaggedTrend = document.querySelector('.kpi-card:nth-child(3) .kpi-trend');
+        const riskTrend = document.querySelector('.kpi-card:nth-child(4) .kpi-trend');
+        
+        if (genericRateTrend) {
+            genericRateTrend.innerHTML = '<i class="fas fa-arrow-up"></i> Improving trend';
+            genericRateTrend.className = 'kpi-trend positive';
+        }
+        if (avgCostTrend) {
+            avgCostTrend.innerHTML = '<i class="fas fa-arrow-down"></i> Decreasing costs';
+            avgCostTrend.className = 'kpi-trend positive';
+        }
+        if (flaggedTrend) {
+            flaggedTrend.innerHTML = '<i class="fas fa-info-circle"></i> Combined data';
+            flaggedTrend.className = 'kpi-trend neutral';
+        }
+        if (riskTrend) {
+            riskTrend.innerHTML = '<i class="fas fa-info-circle"></i> Aggregated view';
+            riskTrend.className = 'kpi-trend neutral';
+        }
+    }
+}
 
 // Tab Navigation
 function initTabs() {
@@ -500,16 +631,29 @@ function scheduleAction(drugName) {
 
 // Export Report Function
 function exportReport() {
+    const quarterValue = document.getElementById('quarter-select').value;
+    const quarterNames = {
+        'q1-2025': 'Q1_2025',
+        'q2-2025': 'Q2_2025',
+        'all': 'All_Quarters_2025'
+    };
+    const periodName = quarterNames[quarterValue] || quarterValue;
+    
     // Create a summary report
     const report = {
         generatedAt: new Date().toISOString(),
-        period: document.getElementById('quarter-select').value,
+        period: periodName.replace(/_/g, ' '),
+        quarterCode: quarterValue,
         summary: {
             avgGenericRate: (facilityData.reduce((sum, f) => sum + f.genericRate, 0) / facilityData.length).toFixed(1) + '%',
             avgUnitCost: '₱' + (facilityData.reduce((sum, f) => sum + f.avgUnitCost, 0) / facilityData.length).toFixed(2),
             totalFlaggedDrugs: riskFlags.length,
-            highRiskFacilities: facilityData.filter(f => f.genericRate < 80 || f.flaggedDrugs > 5).length
+            highRiskFacilities: facilityData.filter(f => f.genericRate < 80 || f.flaggedDrugs > 5).length,
+            totalFacilities: facilityData.length,
+            totalDrugsTracked: drugCostQuantity.length
         },
+        drugData: drugCostQuantity,
+        pricingData: drugPricing,
         riskFlags: riskFlags,
         facilities: facilityData
     };
@@ -521,16 +665,16 @@ function exportReport() {
     
     const link = document.createElement('a');
     link.href = url;
-    link.download = `CMA_Compliance_Report_${report.period}.json`;
+    link.download = `CMA_Compliance_Report_${periodName}.json`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
     
-    alert('Report exported successfully!');
+    alert(`Report exported successfully!\nPeriod: ${periodName.replace(/_/g, ' ')}`);
 }
 
-// Add styles for modal content
+// Add styles for modal content and notifications
 const modalStyles = document.createElement('style');
 modalStyles.textContent = `
     .drug-details {
@@ -604,9 +748,55 @@ modalStyles.textContent = `
         box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
     }
     
+    /* Quarter change notification */
+    .quarter-notification {
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.2);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        z-index: 9999;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: all 0.3s ease;
+    }
+    
+    .quarter-notification.show {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    
+    .quarter-notification i {
+        font-size: 1.25rem;
+    }
+    
+    .quarter-notification span {
+        font-size: 0.875rem;
+    }
+    
+    .quarter-notification strong {
+        font-weight: 600;
+    }
+    
     @media (max-width: 480px) {
         .detail-grid {
             grid-template-columns: 1fr;
+        }
+        
+        .quarter-notification {
+            left: 20px;
+            right: 20px;
+            transform: translateY(-100%);
+        }
+        
+        .quarter-notification.show {
+            transform: translateY(0);
         }
     }
 `;
